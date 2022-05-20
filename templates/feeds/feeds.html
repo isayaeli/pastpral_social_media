@@ -41,12 +41,12 @@
     </div>
     <div class="suggestions-list">
         <div class="suggestion-usd">
-            <img src="images/resources/s1.png" alt="">
+            <img src="{% static 'assets/images/s1.png' %}" alt="">
             <div class="sgt-text">
                 <h4>Jessica William</h4>
                 <span>Dodoma</span>
             </div>
-            <span><i class="la la-plus"></i></span>
+            <span><i class="fa fa-eye"></i></span>
         </div>
         <div class="suggestion-usd">
             <img src="images/resources/s2.png" alt="">
@@ -85,25 +85,27 @@
     </div>
     <div class="col-lg-6 col-md-8 no-pd">
         <div class="main-ws-sec">
+
             <div class="post-topbar">
                 <div class="user-picy">
                     <img src="assests/images/user-pic.png" alt="">
                 </div>
                 <div class="post-st">
                     <ul>
-                        <li><a class="post_project" href="#" title="">Post a Video</a></li>
-                        <li><a class="post-jb active" href="#" title="">Post </a></li>
+                        <li><a class="active" href="#" title="">Add <i class="fa fa-video" ></i></a></li>
+                        <li><a class=" active" href="#" title="">Post <i class="fa fa-plus" ></i> </a></li>
                     </ul>
                 </div>
             </div>
             <div class="posts-section">
+             {% for data in feeds %}   
             <div class="post-bar">
                 <div class="post_topbar">
                     <div class="usy-dt">
-                        <img src="assets/images/us-pic.png" alt="">
+                        <img src="{% static 'assets/images/us-pic.png' %}" alt="">
                         <div class="usy-name">
-                            <a href="timeline.html"><h3>John Doe</h3></a>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                            <a href="timeline.html"><h3>{{ data.user.username }}</h3></a>
+                            <span><img src="{% static 'assets/images/clock.png' %}" alt="">{{data.published}}</span>
                         </div>
                     </div>
                     <div class="ed-opts">
@@ -116,7 +118,7 @@
                 </div>
                 <div class="epi-sec">
                     <ul class="descp">
-                        <li><img src="assets/images/icon8.png" alt=""><span>Dodoma</span></li>
+                        <li><img src="{% static 'assets/images/icon8.png' %}" alt=""><span>Dodoma</span></li>
                     </ul>
                     <ul class="bk-links">
                         <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li>
@@ -129,14 +131,30 @@
                         <li><a href="#" title="">Full Time</a></li>
                         <!-- <li><span>$30 / hr</span></li> -->
                     </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
+                    {% if data.texts %}
+                    <p> 
+                        {{data.texts|truncatechars:"200"}}
+                        <a href="#" title="">view more</a>
+                    </p>
+                    {% endif %}
+
+                    {% if data.image %}
+                     <img style="width:100%;" src="{{ data.image.url }}" alt="">
+                    {% endif %}
+
+                    {% if data.video %}
+                    <video id="v" style=" width:100%;" controls  >
+                        <source src="{{ data.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% endif %}
                
                 </div>
                 <div class="job-status-bar">
                     <ul class="like-com">
                     <li>
                     <a href="#"><i class="fas fa-heart"></i> Like</a>
-                    <img src="assets/images/liked-img.png" alt="">
+                    <img src="{% static 'assets/images/liked-img.png' %}" alt="">
                     <span>25</span>
                     </li>
                     <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
@@ -144,205 +162,8 @@
                     <a href="#"><i class="fas fa-eye"></i>Views 50</a>
                 </div>
             </div>
-
-            <div class="post-bar">
-                <div class="post_topbar">
-                    <div class="usy-dt">
-                        <img src="assets/images/us-pic.png" alt="">
-                        <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                        </div>
-                    </div>
-                    <div class="ed-opts">
-                        <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
-                        <ul class="ed-options">
-                            <li><a href="#" title="">Edit Post</a></li>
-                            <li><a href="#" title="">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="epi-sec">
-                    <ul class="descp">
-                        <li><img src="assets/images/icon8.png" alt=""><span>Dodoma</span></li>
-                        </ul>
-                        <ul class="bk-links">
-                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li>
-                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
-                        </ul>
-                </div>
-                <div class="job_descp">
-                    <h3>Pastoralist</h3>
-                    <ul class="job-dt">
-                        <li><a href="#" title="">Full Time</a></li>
-                        <!-- <li><span>$30 / hr</span></li> -->
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-               
-                </div>
-                <div class="job-status-bar">
-                    <ul class="like-com">
-                    <li>
-                    <a href="#"><i class="fas fa-heart"></i> Like</a>
-                    <img src="assets/images/liked-img.png" alt="">
-                    <span>25</span>
-                    </li>
-                    <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
-                    </ul>
-                    <a href="#"><i class="fas fa-eye"></i>Views 50</a>
-                </div>
-            </div>
-
-
-            <div class="post-bar">
-                <div class="post_topbar">
-                    <div class="usy-dt">
-                        <img src="assets/images/us-pic.png" alt="">
-                        <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                        </div>
-                    </div>
-                    <div class="ed-opts">
-                        <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
-                        <ul class="ed-options">
-                            <li><a href="#" title="">Edit Post</a></li>
-                            <li><a href="#" title="">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="epi-sec">
-                    <ul class="descp">
-                        <li><img src="assets/images/icon8.png" alt=""><span>Dodoma</span></li>
-                        </ul>
-                        <ul class="bk-links">
-                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li>
-                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
-                        </ul>
-                </div>
-                <div class="job_descp">
-                    <h3>Pastoralist</h3>
-                    <ul class="job-dt">
-                        <li><a href="#" title="">Full Time</a></li>
-                        <!-- <li><span>$30 / hr</span></li> -->
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-               
-                </div>
-                <div class="job-status-bar">
-                    <ul class="like-com">
-                    <li>
-                    <a href="#"><i class="fas fa-heart"></i> Like</a>
-                    <img src="assets/images/liked-img.png" alt="">
-                    <span>25</span>
-                    </li>
-                    <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
-                    </ul>
-                    <a href="#"><i class="fas fa-eye"></i>Views 50</a>
-                </div>
-            </div>
-
-
-            <div class="post-bar">
-                <div class="post_topbar">
-                    <div class="usy-dt">
-                        <img src="assets/images/us-pic.png" alt="">
-                        <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                        </div>
-                    </div>
-                    <div class="ed-opts">
-                        <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
-                        <ul class="ed-options">
-                            <li><a href="#" title="">Edit Post</a></li>
-                            <li><a href="#" title="">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="epi-sec">
-                    <ul class="descp">
-                        <li><img src="assets/images/icon8.png" alt=""><span>Dodoma</span></li>
-                        </ul>
-                        <ul class="bk-links">
-                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li>
-                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
-                        </ul>
-                </div>
-                <div class="job_descp">
-                    <h3>Pastoralist</h3>
-                    <ul class="job-dt">
-                        <li><a href="#" title="">Full Time</a></li>
-                        <!-- <li><span>$30 / hr</span></li> -->
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-               
-                </div>
-                <div class="job-status-bar">
-                    <ul class="like-com">
-                    <li>
-                    <a href="#"><i class="fas fa-heart"></i> Like</a>
-                    <img src="assets/images/liked-img.png" alt="">
-                    <span>25</span>
-                    </li>
-                    <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
-                    </ul>
-                    <a href="#"><i class="fas fa-eye"></i>Views 50</a>
-                </div>
-            </div>
-
-            <div class="post-bar">
-                <div class="post_topbar">
-                    <div class="usy-dt">
-                        <img src="assets/images/us-pic.png" alt="">
-                        <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                        </div>
-                    </div>
-                    <div class="ed-opts">
-                        <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
-                        <ul class="ed-options">
-                            <li><a href="#" title="">Edit Post</a></li>
-                            <li><a href="#" title="">Delete</a></li>
-                           
-                        </ul>
-                    </div>
-                </div>
-                <div class="epi-sec">
-                    <ul class="descp">
-                        <li><img src="assets/images/icon8.png" alt=""><span>Dodoma</span></li>
-                        </ul>
-                        <ul class="bk-links">
-                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li>
-                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
-                        </ul>
-                </div>
-                <div class="job_descp">
-                    <h3>Officer</h3>
-                    <ul class="job-dt">
-                        <li><a href="#" title="">Part Time</a></li>
-                        <li><span>Available</span></li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-               
-                </div>
-                <div class="job-status-bar">
-                    <ul class="like-com">
-                    <li>
-                    <a href="#"><i class="fas fa-heart"></i> Like</a>
-                    <img src="assets/images/liked-img.png" alt="">
-                    <span>25</span>
-                    </li>
-                    <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
-                    </ul>
-                    <a href="#"><i class="fas fa-eye"></i>Views 50</a>
-                </div>
-            </div>
-            
-        
-
-
+            {% endfor %}
+    
             <!-- <div class="process-comm">
                 <div class="spinner">
                     <div class="bounce1"></div>
@@ -403,7 +224,7 @@
         </div>
        
         
-    </div>
+        </div>
     </div>
 
     </div>
@@ -413,58 +234,7 @@
     </div>
     </div>
     </main>
-  
-    <div class="post-popup job_post">
-        <div class="post-project">
-            <h3>Post</h3>
-            <div class="post-project-fields">
-                <form>
-                    <div class="row">
-                    <div class="col-lg-12">
-                        <input type="text" name="title" placeholder="Title">
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="inp-field">
-                        <select>
-                            <option>Category</option>
-                            <option>Category 1</option>
-                            <option>Category 2</option>
-                            <option>Category 3</option>
-                        </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <input type="text" name="skills" placeholder="Skills">
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="price-br">
-                            <input type="text" name="price1" placeholder="Price">
-                            <i class="la la-dollar"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="inp-field">
-                            <select>
-                                <option>Full Time</option>
-                                <option>Half time</option>
-                            </select>
-                        </div>
-                    </div>
-                        <div class="col-lg-12">
-                            <textarea name="description" placeholder="Description"></textarea>
-                        </div>
-                        <div class="col-lg-12">
-                        <ul>
-                            <li><button class="active" type="submit" value="post">Post</button></li>
-                            <li><a href="#" title="">Cancel</a></li>
-                        </ul>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        <a href="#" title=""><i class="la la-times-circle-o"></i></a>
-        </div>
-    </div>
+
     
     </div>
 </div>
