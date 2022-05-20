@@ -39,7 +39,9 @@ def register_request(request):
                 profile = Profile.objects.get(user=request.user)
                 profile.role = role
                 profile.save()
-                messages.success(request, "Successful Registered! you can now proceed o login")
+                messages.success(request, "Successful Registered!")
+                if 'next' in request.POST:
+                   return redirect(request.POST.get('next'))
                 return redirect('feeds')
         
     else:
