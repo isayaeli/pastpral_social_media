@@ -8,7 +8,7 @@
     <div class="row">
     <div class="col-lg-3 col-md-4 pd-left-none no-pd">
     <div class="main-left-sidebar no-margin">
-    <div class="user-data full-width">
+    <div class="user-data full-width" style="position: fixed; width:260px; margin-top: 30px;">
         <div class="user-profile">
             <div class="username-dt">
                 <div class="usr-pic">
@@ -16,25 +16,25 @@
                 </div>
             </div>
             <div class="user-specs">
-                <h3>John Doe</h3>
+                <h3>{{request.user.username}}</h3>
                 <span>Pastoralist at Dodoma</span>
             </div>
         </div>
-        <ul class="user-fw-status">
+        <ul class="user-fw-status" style="display: inline-flex ;">
             <li>
-                <h4>Following</h4>
-                <span>34</span>
+                <h6><b>Following</b></h6>
+                <small>34</small>
             </li>
             <li>
-                <h4>Followers</h4>
-                <span>155</span>
+                <h6><b>Followers</b></h6>
+                <small>155</small>
             </li>
                 <li>
-                <a href="my-profile-feed.html" title="">View Profile</a>
+                <a class="btn btn-success btn-sm rounded-pill text-white " href="my-profile-feed.html" title="">Profile</a>
                 </li>
             </ul>
     </div>
-    <div class="suggestions full-width">
+    <div class="suggestions full-width" style="position:fixed; width:260px; margin-top: 23%;" >
     <div class="sd-title">
         <h3>Top Suggested Officers</h3>
         <i class="la la-ellipsis-v"></i>
@@ -49,7 +49,7 @@
             <span><i class="fa fa-eye"></i></span>
         </div>
         <div class="suggestion-usd">
-            <img src="images/resources/s2.png" alt="">
+            <img src="{% static 'assets/images/s2.png' %}" alt="">
             <div class="sgt-text">
                 <h4>John Doe</h4>
                 <span>Dar es salaam</span>
@@ -57,21 +57,14 @@
             <span><i class="la la-plus"></i></span>
         </div>
         <div class="suggestion-usd">
-            <img src="images/resources/s3.png" alt="">
+            <img src="{% static 'assets/images/s3.png' %}" alt="">
             <div class="sgt-text">
                 <h4>Jane Doe</h4>
                 <span>Arusha</span>
             </div>
                 <span><i class="la la-plus"></i></span>
             </div>
-        <div class="suggestion-usd">
-            <img src="images/resources/s4.png" alt="">
-            <div class="sgt-text">
-                <h4>Bill Gates</h4>
-                <span>Kilimanajaro</span>
-            </div>
-            <span><i class="la la-plus"></i></span>
-        </div>
+    
     
 
         <div class="view-more">
@@ -83,7 +76,7 @@
 
     </div>
     </div>
-    <div class="col-lg-6 col-md-8 no-pd">
+    <div class="col-lg-6 col-md-8 no-pd" style="margin-top: 30px ;">
         <div class="main-ws-sec">
 
             <div class="post-topbar">
@@ -111,8 +104,9 @@
                     <div class="ed-opts">
                     <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
                         <ul class="ed-options">
-                            <li><a href="#" title="">Edit Post</a></li>
-                            <li><a href="#" title="">Delete</a></li>
+                            <li><a href="#" title="">Edit <i class="fa fa-pencil" ></i></a></li>
+                            <li><a href="#" title="">Delete<i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                            </a></li>
                         </ul>
                     </div>
                 </div>
@@ -121,10 +115,13 @@
                         <li><img src="{% static 'assets/images/icon8.png' %}" alt=""><span>Dodoma</span></li>
                     </ul>
                     <ul class="bk-links">
-                        <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li>
+                        <!-- <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li> -->
                         <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
                     </ul>
                 </div>
+
+
+
                 <div class="job_descp">
                     <h3>Pastoralist</h3>
                     <ul class="job-dt">
@@ -153,13 +150,13 @@
                 <div class="job-status-bar">
                     <ul class="like-com">
                     <li>
-                    <a href="#"><i class="fas fa-heart"></i> Like</a>
-                    <img src="{% static 'assets/images/liked-img.png' %}" alt="">
-                    <span>25</span>
+                    <span class="ml-1" ><strong style="font-size:10px ;" >250M</strong></span>
+                    <a href="#"><i class="fa fa-heart ml-1"></i> Like</a>
+                    
                     </li>
                     <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
                     </ul>
-                    <a href="#"><i class="fas fa-eye"></i>Views 50</a>
+                    <a href="#"><i class="fa fa-eye"></i>Views 50</a>
                 </div>
             </div>
             {% endfor %}
@@ -178,9 +175,9 @@
     <div class="col-lg-3 pd-right-none no-pd">
     <div class="right-sidebar">
   
-    <div class="widget widget-jobs">
+    <div class="widget widget-jobs"style="position:fixed; width:260px; margin-top:30px">
     <div class="sd-title">
-        <h3>Top Keeping Lessons</h3>
+        <h3>Top Trending Lessons</h3>
         <i class="la la-ellipsis-v"></i>
     </div>
     <div class="jobs-list">

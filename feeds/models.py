@@ -6,7 +6,7 @@ from django.utils import timezone
 # Create your models here.
 class Feed(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    texts = models.TextField(max_length=100, null=True, blank=True)
+    texts = models.TextField(max_length=255, null=True, blank=True)
     image = models.FileField(upload_to='post_images', null=True, blank=True)
     video = models.FileField(upload_to='post_videos', null=True, blank=True)
     posted_on = models.DateTimeField(default=datetime.now)
