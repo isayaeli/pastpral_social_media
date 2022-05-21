@@ -6365,7 +6365,7 @@ a:hover {
 }
 
 .modal-header{
-	background-color: #e44d3a;
+	background-color: green;
 	display: block!important;
 }
 .modal-body{
@@ -6458,13 +6458,13 @@ a:hover {
 	background-color: unset;
 	border:none;
 	padding: 10px;
-	border:1px solid #d2d2d2;
+	border:1px solid green;
 	border-radius: 3px;
 }
 .modal-footer button:hover{
-	background-color: #e44d3a;
+	background-color: green;
 	color: #fff;
-	border:1px solid #e44d3a;
+	border:1px solid green;
 }
 
 .place-bid-btn {
@@ -6838,4 +6838,15 @@ ul#myTab {
     line-height: 24px;
     font-size: 14px;
     color: #666666;
+}
+
+
+.text:focus{
+	outline: transparent;
+	border: none;
+}
+.text{
+	width: 90%;
+	border: none;
+	color: black;
 }

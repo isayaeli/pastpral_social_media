@@ -81,12 +81,14 @@
 
             <div class="post-topbar">
                 <div class="user-picy">
-                    <img src="assests/images/user-pic.png" alt="">
+                    <img src="{% static 'assets/images/user-pic.png' %}" alt="">
+                    
                 </div>
                 <div class="post-st">
                     <ul>
-                        <li><a class="active" href="#" title="">Add <i class="fa fa-video" ></i></a></li>
-                        <li><a class=" active" href="#" title="">Post <i class="fa fa-plus" ></i> </a></li>
+                        <li><li><a class="active"  data-toggle="modal" data-target="#text" title="">Share a post now</a></li></li>
+                        <li><a class="active" data-toggle="modal" data-target="#vid"  title=""><i class="fa fa-video" ></i></a></li>
+                        <li><a class=" active" data-toggle="modal" data-target="#img" title=""><i class="fa fa-image" ></i> </a></li>
                     </ul>
                 </div>
             </div>
@@ -105,7 +107,7 @@
                     <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
                         <ul class="ed-options">
                             <li><a href="#" title="">Edit <i class="fa fa-pencil" ></i></a></li>
-                            <li><a href="#" title="">Delete<i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                            <li><a data-toggle="modal" data-target="#delete{{ data.id }}" title="">Delete<i class="fa fa-trash text-dark"></i>
                             </a></li>
                         </ul>
                     </div>
@@ -235,4 +237,6 @@
     
     </div>
 </div>
+
+{% include 'includes/modals.html' %}
 {% endblock contents %}
