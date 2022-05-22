@@ -1,4 +1,5 @@
 from email import message
+from functools import reduce
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Feed
 from django.contrib.auth.decorators import login_required
@@ -22,6 +23,19 @@ def feeds(request):
         'feeds':feeds
     }
     return render(request, 'feeds/feeds.html',context)
+
+
+def edit_feed(request ,id):
+    feed =  get_object_or_404(Feed, id=id)
+    if request.method == 'POST':
+        feed.user = request.user
+        feed.texts = request.POST['texts']
+        if 'image' in request.FILES:
+            feed.image = request.FILES.get('image')
+        if 'video' in request.FILES:
+            feed.video = request.FILES.get('video')
+        feed.save()
+    return redirect('feeds')
 
 def delete_feed(request, id):
     feed =  get_object_or_404(Feed, id=id)

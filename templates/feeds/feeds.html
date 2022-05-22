@@ -78,7 +78,20 @@
     </div>
     <div class="col-lg-6 col-md-8 no-pd" style="margin-top: 30px ;">
         <div class="main-ws-sec">
-
+            {% if messages %}
+            {% for message in messages %}
+              {% if message.tags == 'success' %}
+              <div id="noto" class="alert alert-success text-center"  role="alert">
+                {{message}}
+                </div>
+              {% endif %}
+              {% if message.tags == 'error' %}
+                <div id="noto" class="alert alert-danger text-center" role="alert">
+                    {{message}}
+                    </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
             <div class="post-topbar">
                 <div class="user-picy">
                     <img src="{% static 'assets/images/user-pic.png' %}" alt="">
@@ -91,7 +104,10 @@
                         <li><a class=" active" data-toggle="modal" data-target="#img" title=""><i class="fa fa-image" ></i> </a></li>
                     </ul>
                 </div>
+                
             </div>
+            
+   
             <div class="posts-section">
              {% for data in feeds %}   
             <div class="post-bar">
@@ -106,7 +122,7 @@
                     <div class="ed-opts">
                     <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
                         <ul class="ed-options">
-                            <li><a href="#" title="">Edit <i class="fa fa-pencil" ></i></a></li>
+                            <li><a data-toggle="modal" data-target="#edit{{ data.id }}" title="">Edit <i class="fa fa-pencil" ></i></a></li>
                             <li><a data-toggle="modal" data-target="#delete{{ data.id }}" title="">Delete<i class="fa fa-trash text-dark"></i>
                             </a></li>
                         </ul>
@@ -142,7 +158,7 @@
                     {% endif %}
 
                     {% if data.video %}
-                    <video id="v" style=" width:100%;" controls  >
+                    <video class="playpause" id="v" style=" width:100%;" controls  >
                         <source src="{{ data.video.url }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -237,6 +253,24 @@
     
     </div>
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $('#noto').delay(5000).fadeOut('slow');
+
+
+    $(".playpause").on('click', function() {
+
+// PAUSE EVERY SINGLE VIDEO IN .sidebar
+$('.sidebar video').each( function(index, element) {
+  $(element).parent().find("video")[0].pause();
+});
+
+// PLAY THE VIDEO WHICH WAS CLICKED
+$(this).parent().find("video")[0].play();
+
+});
+</script>
 
 {% include 'includes/modals.html' %}
 {% endblock contents %}
