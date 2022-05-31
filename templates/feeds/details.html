@@ -2,7 +2,7 @@
 {% load static %}
 {% block contents %}
 <main>
-<div class="main-section">
+<div class="main-section mt-5">
 <div class="container">
 <div class="main-section-data">
 <div class="row">
@@ -11,124 +11,113 @@
 <div class="main-ws-sec">
 <div class="posts-section">
 <div class="post-bar">
-<div class="post_topbar">
-    <div class="usy-dt">
-        <img src="images/resources/bg-img2.png" alt="">
-        <div class="usy-name">
-            <h3>John Doe</h3>
-            <span><img src="images/clock.png" alt="">3 min ago</span>
-        </div>
+    <div class="post_topbar">
+        <div class="usy-dt">
+            <img src="{% static 'assets/images/us-pic.png' %}" alt="">
+            <div class="usy-name">
+                <a href="timeline.html"><h3>{{ data.user.username }}</h3></a>
+                <span><img src="{% static 'assets/images/clock.png' %}" alt="">{{data.published}}</span>
+            </div>
         </div>
         <div class="ed-opts">
-            <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-        <ul class="ed-options">
-            <li><a href="#" title="">Edit Post</a></li>
-            <li><a href="#" title="">Unsaved</a></li>
-            <li><a href="#" title="">Unbid</a></li>
-            <li><a href="#" title="">Close</a></li>
-            <li><a href="#" title="">Hide</a></li>
-        </ul>
+        <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
+            <ul class="ed-options">
+                <li><a  href="{% url 'edit_feed' data.id %}" title="">Edit <i class="fa fa-pencil" ></i></a></li>
+                <li><a data-toggle="modal" data-target="#delete{{ data.id }}" title="">Delete<i class="fa fa-trash text-dark"></i>
+                </a></li>
+            </ul>
+        </div>
     </div>
-</div>
-<div class="epi-sec">
-    <ul class="descp">
-        <li><img src="images/icon8.png" alt=""><span>Front End Developer</span></li>
-        <li><img src="images/icon9.png" alt=""><span>India</span></li>
+    <div class="epi-sec">
+        <ul class="descp">
+            <li class="fornt-weight-bold" ><h3 style="font-weight: 900;" >Pastoralist</h3></li>
+            <li><img src="{% static 'assets/images/icon8.png' %}" alt=""><span>Dodoma</span></li>
         </ul>
         <ul class="bk-links">
-        <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-        <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-        <li><a href="#" title="" class="bid_now">Bid Now</a></li>
-    </ul>
-</div>
-<div class="job_descp accountnone">
-    <h3>Ios Shopping mobile app</h3>
-    <ul class="job-dt">
-        <li><span>$500 - $600</span></li>
+         
+            <!-- <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li> -->
+            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
         </ul>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porttitor ligula et dolor dignissim, sit amet efficitur felis maximus. Suspendisse metus magna, tempus eu ultrices et, maximus id tellus. Ut eu lacinia ante, id facilisis enim. s. ut suscipit urna sollicitudin at... view more <a href="#" title="">view more</a></p>
-        <ul class="skill-tags">
-        <li><a href="#" title="">HTML</a></li>
-        <li><a href="#" title="">PHP</a></li>
-        <li><a href="#" title="">CSS</a></li>
-        <li><a href="#" title="">Javascript</a></li>
-        <li><a href="#" title="">Wordpress</a></li>
-    </ul>
-</div>
-<div class="job-status-bar btm-line">
-    <ul class="like-com">
+    </div>
+    <div class="job_descp">
+        <!-- <h3>Pastoralist</h3> -->
+        <!-- <ul class="job-dt">
+            <li><a href="#" title="">Full Time</a></li>
+            <li><span>$30 / hr</span></li>
+        </ul> -->
+        {% if data.texts %}
+        <p> 
+            {{data.texts}}
+            
+        </p>
+        {% endif %}
+
+        {% if data.image %}
+         <img style="width:100%;" src="{{ data.image.url }}" alt="">
+        {% endif %}
+
+        {% if data.video %}
+        <video class="playpause" id="v" style=" width:100%;" controls  >
+            <source src="{{ data.video.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        {% endif %}
+   
+    </div>
+    <div class="job-status-bar mb-3">
+        <ul class="like-com">
         <li>
-            <a href="#" class="active"><i class="fas fa-heart"></i> Like</a>
-        <img src="images/liked-img.png" alt="">
-        <span>25</span>
+        <span class="ml-1" ><strong style="font-size:10px ;" >250M</strong></span>
+        <a href="#"><i class="fa fa-heart ml-1"></i> Like</a>
+        
         </li>
-        <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comments 15</a></li>
-    </ul>
-    <a href="#"><i class="fas fa-eye"></i>Views 50</a>
-</div>
-<div class="comment-area">
-    <i class="la la-plus-circle"></i>
-    <div class="post_topbar">
-        <div class="usy-dt">
-            <img src="images/resources/bg-img1.png" alt="">
-            <div class="usy-name">
-            <h3>John Doe</h3>
-            <span><img src="images/clock.png" alt="">3 min ago</span>
-            </div>
-        </div>
+        <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
+        </ul>
+        <a href="#"><i class="fa fa-eye"></i>Views 50</a>
     </div>
-    <div class="reply-area">
-        <p>Lorem ipsum dolor sit amet,</p>
-        <span><i class="la la-mail-reply"></i>Reply</span>
-        <div class="comment-area reply-rply1">
-            <div class="post_topbar">
-                <div class="usy-dt">
-                    <img src="images/resources/bg-img2.png" alt="">
-                    <div class="usy-name">
-                        <h3>John Doe</h3>
-                        <span><img src="images/clock.png" alt="">3 min ago</span>
-                    </div>
-                </div>
-            </div>
-            <div class="reply-area">
-                <p>Hi John</p>
-                <span><i class="la la-mail-reply"></i>Reply</span>
-            </div>
-        </div>
+    
+    <div class=" ml-3" >
+        <form action="">
+             <textarea name="content" id="" cols="30" rows="3" class="form-control mb-3"></textarea>
+             <button class=" btn btn-success rounded-pill" >Add Comment</button>
+        </form>
     </div>
-</div>
-<div class="comment-area">
-    <div class="post_topbar">
-        <div class="usy-dt">
-            <img src="images/resources/bg-img3.png" alt="">
-            <div class="usy-name">
+    {% for data in data.get_comment %}
+    <div class="comment-area" style="margin-bottom:-20px;">
+        <i class="la la-plus-circle"></i>
+        <div class="post_topbar">
+            <div class="usy-dt">
+                <img src="images/resources/bg-img1.png" alt="">
+                <div class="usy-name">
                 <h3>John Doe</h3>
                 <span><img src="images/clock.png" alt="">3 min ago</span>
+                </div>
+            </div>
+        </div>
+        <div class="reply-area">
+            <div  >
+                <p style="margin-left:-40px;" >{{data.content}}</p>
+                <span style="margin-left: -60px;"><i class="la la-mail-reply"></i>2 Reply</span>
+            </div>
+            <div class="comment-area reply-rply1" style="display: none;">
+                <div class="post_topbar">
+                    <div class="usy-dt">
+                        <img src="images/resources/bg-img2.png" alt="">
+                        <div class="usy-name">
+                            <h3>John Doe</h3>
+                            <span><img src="images/clock.png" alt="">3 min ago</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reply-area">
+                    <p style="margin-left:-40px;" >Hi John</p>
+                    <span><i class="la la-mail-reply"></i>Reply</span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="reply-area">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at.</p>
-        <span><i class="la la-mail-reply"></i>Reply</span>
-    </div>
-</div>
-<div class="postcomment">
-    <div class="row">
-        <div class="col-md-2">
-            <img src="images/resources/bg-img4.png" alt="">
-        </div>
-        <div class="col-md-8">
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="inputPassword" placeholder="Post a comment">
-                </div>
-            </form>
-        </div>
-        <div class="col-md-2">
-            <a href="#">Send</a>
-        </div>
-    </div>
-</div>
+    {% endfor %}
+
 </div>
 </div>
 
@@ -139,7 +128,7 @@
 <div class="col-xl-3 col-lg-3 col-md-12">
     <div class="right-sidebar">
         <div class="widget widget-about bid-place">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyjob" data-whatever="@mdo">Place a Bid</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#applyjob" data-whatever="@mdo">Place a Bid</button>
         </div>
 
         <div class="widget widget-projectid">
@@ -184,7 +173,7 @@
                 <i class="la la-ellipsis-v"></i>
             </div>
             <div class="sd-title copylink">
-                <P>Http://www.workwise.com/pro...</P>
+                <P></P>
                 <span><a href="#">Copy Link</a></span>
             </div>
         </div>
