@@ -107,14 +107,14 @@
                               onchange="document.getElementById('blah4').src = window.URL.createObjectURL(this.files[0])" required="required">
                               <img id="blah4"  style="width:100% ;" />
                             
-                              <img src="{{data.image.url}}" alt="">
-                              <input type="file" style="display:none ;"name="image" value="{{data.image.url}}" >
-                             <center><button id="btnfile" class="btn btn-secondary rounded-pill btn-sm mt-2" >Choose an image from your device</button></center>
+                              <img id="loadedImg" src="{{data.image.url}}" alt="">
+                           
+                             <center><button id="btnfile4" class="btn btn-secondary rounded-pill btn-sm mt-2" >Choose an image from your device</button></center>
                              {% endif %}
     
     
                              {% if data.video %}
-                              <input style="display: none;"  id="uploadfile3" class="form-control" id="image2" type="file" name="video" 
+                              <input style="display: none;"  id="uploadfile3" class="form-control" id="image" type="file" name="video" 
                               onchange="document.getElementById('blah3').src = window.URL.createObjectURL(this.files[0])" required="required">
                               <video id="blah3" style=" width:100%; display: none;" controls  >
                                   Your browser does not support the video tag.
@@ -125,7 +125,7 @@
                                   Your browser does not support the video tag.
                               </video>
                             
-                             <center><button id="btnfile2" class="btn btn-secondary rounded-pill btn-sm mt-2" >Choose an video file from your device</button></center>
+                             <center><button id="btnfile3" class="btn btn-secondary rounded-pill btn-sm mt-2" >Choose an video file from your device</button></center>
                              {% endif %}
                             </div>
                        </div>
@@ -179,8 +179,6 @@
 
 
 
-
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $("#btnfile").click(function () {
@@ -189,16 +187,15 @@
 
     $("#btnfile2").click(function () {
     $("#uploadfile2").click();
-    
+  });
     $("#btnfile3").click(function () {
     $("#uploadfile3").click();
-
+    
+  });
     $("#btnfile4").click(function () {
     $("#uploadfile4").click();
+    $("#loadedImg").hide()
+  });
     
-    $('#blah2').css('display', 'block')
-    $('#v').css('display', 'none')
-    });
-
 
 </script>

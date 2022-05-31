@@ -52,6 +52,7 @@ class Feed(models.Model):
             months = math.floor(diff.days/30)
             if months == 1:
                 return str(months) + " month ago"
+                
             else:
                 return str(months) + " months ago"
 
@@ -61,3 +62,6 @@ class Feed(models.Model):
                 return str(years) + " year ago"
             else:
                 return str(years) + " years ago"
+                
+                
+                

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+<style>
+  .btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+</style>
+    <main>
+    <div class="main-section mt-5">
+    <div class="container">
+    <div class="main-section-data">
+    <div class="row">
+    <div class="col-xl-9 col-lg-9 col-md-12">
+   
+    <div class="main-ws-sec">
+    <div class="posts-section">
+    <div class="post-bar">
+    <div class="post_topbar">
+
+    </div>
+    <!-- <div class="epi-sec">
+      <ul class="bk-links">
+        <li><a href="#" title=""><i class="fa fa-edit"></i></a></li>
+        <li><a href="#" title=""><i class="fa fa-remove"></i></a></li>
+      </ul>
+    </div> -->
+    <div class="job_descp accountnone">
+     
+   
+      <form action="{% url 'edit_feed' data.id %}"method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+       <div style="width:100%;">
+          <div class="mb-3">
+              <textarea   class="ml-4 mr-4 mt-3 text" name="texts" i cols="30" rows="3" placeholder="Video Caption Here" >{{data.texts}}</textarea>
+             
+              
+              
+           
+              {% if data.image %}
+              <img id="i" src="{{data.image.url}}" alt="">
+              <img id="blah4"  style="width:100% ; display: none;" />
+            
+              <center>       
+                <span class="btn btn-secondary btn-file rounded-pill btn-sm mt-2">
+                  Choose an image file from your device
+                  <input   id="uploadfile3"  type="file" name="image" 
+                  onchange="document.getElementById('blah4').src = window.URL.createObjectURL(this.files[0])" required="required">
+              </span>
+            </center>
+             {% endif %}
+            
+  
+            
+      
+        
+      
+
+             {% if data.video %}
+
+             <video class="playpause" id="v" style=" width:100%;" controls  >
+              <source src="{{ data.video.url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+
+              <video id="blah3" style=" width:100%; display: none;" controls  >
+                  Your browser does not support the video tag.
+              </video>
+
+              <center>       
+                <span class="btn btn-secondary btn-file rounded-pill btn-sm mt-2">
+                  Choose an video file from your device
+                  <input   id="uploadfile3"  type="file" name="video" 
+                  onchange="document.getElementById('blah3').src = window.URL.createObjectURL(this.files[0])" required="required">
+              </span>
+            </center>
+           
+             {% endif %}
+            </div>
+       </div>
+       <div class="modal-footer">
+          <button style="width:70%; background-color: green;" type="submit" class="btn btn-success ml-4 mr-4 rounded-pill">UPDATE A POST</button>
+          <a href="{% url 'feeds' %}" class="btn btn-secondary text-white rounded-pill">Back</a>
+        </div>
+    </form>  
+  </div> 
+</div>
+</div>
+</div>
+    </div>
+
+
+    </div>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+
+    </div>
+    
+
+    </div>
+    </div>
+    </div>
+    </main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+
+  
+  $(".btn-file").click(function(){
+    $('#blah3').show()
+    $("#v").hide()
+    $('#blah4').show()
+    $("#i").hide()
+
+  })
+
+
+
+</script>
+
+
+   {% endblock contents %}

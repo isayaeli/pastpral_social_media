@@ -25,6 +25,15 @@ def feeds(request):
     return render(request, 'feeds/feeds.html',context)
 
 
+
+def feed_details(request ,id):
+    feed =  get_object_or_404(Feed, id=id)
+    context = {
+        'data':feed
+    }
+    return render(request,'feeds/details.html', context)
+
+
 def edit_feed(request ,id):
     feed =  get_object_or_404(Feed, id=id)
     if request.method == 'POST':
@@ -35,7 +44,11 @@ def edit_feed(request ,id):
         if 'video' in request.FILES:
             feed.video = request.FILES.get('video')
         feed.save()
-    return redirect('feeds')
+        return redirect('feeds')
+    context = {
+        'data':feed
+    }
+    return render(request, 'feeds/feed_edit.html',context)
 
 def delete_feed(request, id):
     feed =  get_object_or_404(Feed, id=id)
