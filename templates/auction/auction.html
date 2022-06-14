@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+<div class="wrapper">
+    <header>
+        <div class="container">
+            <div class="header-data">
+                <div class="logo pd-btm">
+                <a href="index.html" title=""><img src="images/logo.png" alt=""></a>
+                </div>
+                <div class="forum-bar">
+                    <h2>Forum</h2>
+                    <ul>
+                        <li><a href="#" title="">Tags</a></li>
+                        <li><a href="#" title="">Users</a></li>
+                        <li><a href="#" title="" class="ask-question">Ask a question</a></li>
+                    </ul>
+                </div>
+                <div class="login_register">
+                    <ul>
+                        <li><a href="sign-in.html" title="">Login</a></li>
+                        <li><a href="sign-in.html" title="">Register</a></li>
+                    </ul>
+                </div>
+                <div class="search-bar st2">
+                    <form>
+                        <input type="text" name="search" placeholder="Search...">
+                        <button type="submit"><i class="la la-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="forum-page">
+        <div class="container">
+            <div class="forum-questions-sec">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="forum-questions">
+                            {% for data in auctions %}
+                            <div class="usr-question">
+                                <div class="usr_quest">
+                                    <h3>{{data.title}}</h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img height="200" width="600" src="{{data.image.url}}" alt="">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>
+                                                {{data.description|truncatechars:"250"}}
+                                            </p>
+                                            <a href="{% url 'bid' data.id %}" class="btn btn-success mt-3 rounded-pill" >Start bidding</a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <span class="quest-posted-time mt-n2 "><i class="fa fa-clock-o"></i>Expires in {{data.deadline}}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    <div class="widget widget-user">
+                        <h3 class="title-wd">Top User of the Week</h3>
+                        <ul>
+                            <li>
+                                <div class="usr-msg-details">
+                                    <div class="usr-ms-img">
+                                        <img src="images/resources/m-img3.png" alt="">
+                                    </div>
+                                    <div class="usr-mg-info">
+                                    <h3>Poonam</h3>
+                                        <p>Wordpress Developer </p>
+                                    </div>
+                                </div>
+                                <span><img src="images/price3.png" alt="">1120</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget widget-adver">
+                    <img src="images/resources/adver-img.png" alt="">
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock contents %}

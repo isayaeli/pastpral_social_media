@@ -2,197 +2,165 @@
 {% load static %}
 {% block contents %}
 <main>
-<div class="main-section mt-5">
-<div class="container">
-<div class="main-section-data">
-<div class="row">
-<div class="col-xl-9 col-lg-9 col-md-12">
+    <div class="main-section mt-5">
+        <div class="container">
+            <div class="main-section-data">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-9 col-md-12">
 
-<div class="main-ws-sec">
-<div class="posts-section">
-<div class="post-bar">
-    <div class="post_topbar">
-        <div class="usy-dt">
-            <img src="{% static 'assets/images/us-pic.png' %}" alt="">
-            <div class="usy-name">
-                <a href="timeline.html"><h3>{{ data.user.username }}</h3></a>
-                <span><img src="{% static 'assets/images/clock.png' %}" alt="">{{data.published}}</span>
-            </div>
-        </div>
-        <div class="ed-opts">
-        <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
-            <ul class="ed-options">
-                <li><a  href="{% url 'edit_feed' data.id %}" title="">Edit <i class="fa fa-pencil" ></i></a></li>
-                <li><a data-toggle="modal" data-target="#delete{{ data.id }}" title="">Delete<i class="fa fa-trash text-dark"></i>
-                </a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="epi-sec">
-        <ul class="descp">
-            <li class="fornt-weight-bold" ><h3 style="font-weight: 900;" >Pastoralist</h3></li>
-            <li><img src="{% static 'assets/images/icon8.png' %}" alt=""><span>Dodoma</span></li>
-        </ul>
-        <ul class="bk-links">
-         
-            <!-- <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li> -->
-            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
-        </ul>
-    </div>
-    <div class="job_descp">
-        <!-- <h3>Pastoralist</h3> -->
-        <!-- <ul class="job-dt">
-            <li><a href="#" title="">Full Time</a></li>
-            <li><span>$30 / hr</span></li>
-        </ul> -->
-        {% if data.texts %}
-        <p> 
-            {{data.texts}}
-            
-        </p>
-        {% endif %}
+                        <div class="main-ws-sec">
+                            <div class="posts-section">
+                                <div class="post-bar">
+                                    <div class="post_topbar">
+                                        <div class="usy-dt">
+                                            <img src="{% static 'assets/images/us-pic.png' %}" alt="">
+                                            <div class="usy-name">
+                                                <a href="{% url 'timeline' data.user.id %}"><h3>{{ data.user.username }}</h3></a>
+                                                <span><img src="{% static 'assets/images/clock.png' %}" alt="">{{data.published}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="ed-opts">
+                                        <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
+                                            <ul class="ed-options">
+                                                <li><a  href="{% url 'edit_feed' data.id %}" title="">Edit <i class="fa fa-pencil" ></i></a></li>
+                                                <li><a data-toggle="modal" data-target="#delete{{ data.id }}" title="">Delete<i class="fa fa-trash text-dark"></i>
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="epi-sec">
+                                        <ul class="descp">
+                                            <li class="fornt-weight-bold" ><h3 style="font-weight: 900;" >Pastoralist</h3></li>
+                                            <li><img src="{% static 'assets/images/icon8.png' %}" alt=""><span>Dodoma</span></li>
+                                        </ul>
+                                        <ul class="bk-links">
+                                        
+                                            <!-- <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li> -->
+                                            <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="job_descp">
+                                        <!-- <h3>Pastoralist</h3> -->
+                                        <!-- <ul class="job-dt">
+                                            <li><a href="#" title="">Full Time</a></li>
+                                            <li><span>$30 / hr</span></li>
+                                        </ul> -->
+                                        {% if data.texts %}
+                                        <p> 
+                                            {{data.texts}}
+                                            
+                                        </p>
+                                        {% endif %}
 
-        {% if data.image %}
-         <img style="width:100%;" src="{{ data.image.url }}" alt="">
-        {% endif %}
+                                        {% if data.image %}
+                                        <img style="width:100%;" src="{{ data.image.url }}" alt="">
+                                        {% endif %}
 
-        {% if data.video %}
-        <video class="playpause" id="v" style=" width:100%;" controls  >
-            <source src="{{ data.video.url }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        {% endif %}
-   
-    </div>
-    <div class="job-status-bar mb-3">
-        <ul class="like-com">
-        <li>
-        <span class="ml-1" ><strong style="font-size:10px ;" >250M</strong></span>
-        <a href="#"><i class="fa fa-heart ml-1"></i> Like</a>
-        
-        </li>
-        <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
-        </ul>
-        <a href="#"><i class="fa fa-eye"></i>Views 50</a>
-    </div>
-    
-    <div class=" ml-3" >
-        <form action="">
-             <textarea name="content" id="" cols="30" rows="3" class="form-control mb-3"></textarea>
-             <button class=" btn btn-success rounded-pill" >Add Comment</button>
-        </form>
-    </div>
-    {% for data in data.get_comment %}
-    <div class="comment-area" style="margin-bottom:-20px;">
-        <i class="la la-plus-circle"></i>
-        <div class="post_topbar">
-            <div class="usy-dt">
-                <img src="images/resources/bg-img1.png" alt="">
-                <div class="usy-name">
-                <h3>John Doe</h3>
-                <span><img src="images/clock.png" alt="">3 min ago</span>
-                </div>
-            </div>
-        </div>
-        <div class="reply-area">
-            <div  >
-                <p style="margin-left:-40px;" >{{data.content}}</p>
-                <span style="margin-left: -60px;"><i class="la la-mail-reply"></i>2 Reply</span>
-            </div>
-            <div class="comment-area reply-rply1" style="display: none;">
-                <div class="post_topbar">
-                    <div class="usy-dt">
-                        <img src="images/resources/bg-img2.png" alt="">
-                        <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="images/clock.png" alt="">3 min ago</span>
+                                        {% if data.video %}
+                                        <video class="playpause" id="v" style=" width:100%;" controls  >
+                                            <source src="{{ data.video.url }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        {% endif %}
+                                
+                                    </div>
+                                    <div class="job-status-bar mb-3">
+                                        <ul class="like-com">
+                                        <li>
+                                        <span class="ml-1" ><strong style="font-size:10px ;" >250M</strong></span>
+                                        <a href="#"><i class="fa fa-heart ml-1"></i> Like</a>
+                                        
+                                        </li>
+                                        <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
+                                        </ul>
+                                        <a href="#"><i class="fa fa-eye"></i>Views 50</a>
+                                    </div>
+                                    <a  id="url" data-url="{% url 'feed_details' data.id %}" href="{% url 'feed_details' data.id %}"></a>
+                                    <div class=" ml-3" >
+                                        
+                                        <form method="post" action="{% url 'feed_details' data.id %}">
+                                            {% csrf_token %}
+                                            <textarea required id="content" name="content" id="" cols="30" rows="3" class="form-control mb-3"></textarea>
+                                            <button id="submit" class=" btn btn-success rounded-pill" >Add Comment</button>
+                                        </form>
+                                    </div>
+                                    {% for data in data.get_comment %}
+                                    <div class="comment-area" style="margin-bottom:-20px;">
+                                        <i class="la la-plus-circle"></i>
+                                        <div class="post_topbar">
+                                            <div class="usy-dt">
+                                                <img height="30" width="30" src="{{data.user.profile.image.url}}" alt="">
+                                                <div class="usy-name">
+                                                <h3>{{data.user.username}}</h3>
+                                                <span><img src="images/clock.png" alt="">3 min ago</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="reply-area">
+                                            <div>
+                                                <p id="commment" style="margin-left:-40px;" >{{data.content}}</p>
+                                                <!-- <span style="margin-left: -60px;"><i class="la la-mail-reply"></i>2 Reply</span> -->
+                                            </div>
+                                            <!-- <div class="comment-area reply-rply1" style="display: none;">
+                                                <div class="post_topbar">
+                                                    <div class="usy-dt">
+                                                        <img src="{{data.user.profile.image.url}}" alt="">
+                                                        <div class="usy-name">
+                                                            <h3>{{data.user.username}}</h3>
+                                                            <span><img src="images/clock.png" alt="">3 min ago</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="reply-area">
+                                                    <p style="margin-left:-40px;" >Hi John</p>
+                                                    <span><i class="la la-mail-reply"></i>Reply</span>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
+
+
                 </div>
-                <div class="reply-area">
-                    <p style="margin-left:-40px;" >Hi John</p>
-                    <span><i class="la la-mail-reply"></i>Reply</span>
-                </div>
+
+
             </div>
         </div>
     </div>
-    {% endfor %}
-
-</div>
-</div>
-
-</div>
-
-</div>
-
-<div class="col-xl-3 col-lg-3 col-md-12">
-    <div class="right-sidebar">
-        <div class="widget widget-about bid-place">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#applyjob" data-whatever="@mdo">Place a Bid</button>
-        </div>
-
-        <div class="widget widget-projectid">
-            <h3>Project ID : 123456789</h3>
-            <p>Report Project</p>
-        </div>
-
-        <div class="widget widget-jobs">
-            <div class="sd-title">
-                <h3>About the Client</h3>
-                <i class="la la-ellipsis-v"></i>
-            </div>
-            <div class="sd-title paymethd">
-                <h4>Payment Method</h4>
-                <p>Verified</p>
-                <ul class="star">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star-half-o"></i></li>
-                    <li><a href="#">5.00 of 5 Reviews</a></li>
-                </ul>
-            </div>
-            <div class="sd-title">
-            <h4>India</h4>
-                <p>SKS Nagar, Ludhiana 1 AM</p>
-            </div>
-            <div class="sd-title">
-                <h4>20 Projects Posted | 15 Jobs Posted</h4>
-                <p>85% Hire Rate, 15% Open Jobs</p>
-            </div>
-            <div class="sd-title">
-                <h4>Member Since</h4>
-                <p>August 24, 2017</p>
-            </div>
-        </div>
-
-        <div class="widget widget-jobs">
-            <div class="sd-title">
-                <h3>Project Link</h3>
-                <i class="la la-ellipsis-v"></i>
-            </div>
-            <div class="sd-title copylink">
-                <P></P>
-                <span><a href="#">Copy Link</a></span>
-            </div>
-        </div>
-
-
-
-    </div>
-
-</div>
-</div>
-
-
-</div>
-</div>
-</div>
 </main>
 
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $(document).on('click', '#submit', function(e){
+        e.preventDefault()
+        url = $('#url').data('#url'),
+        $.ajax({
+            method:'POST',
+            url:url,
+            data:{
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                content:$('#content').val(),
+               
+            },
+            success:function(response){
+                console.log(response)
 
-</div>
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    })
+</script> -->
 
-</div>
+
+
+
 {% endblock contents %}

@@ -1,5 +1,7 @@
-from email import message
-from functools import reduce
+
+import json
+from .models import Comment
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Feed
 from django.contrib.auth.decorators import login_required
@@ -28,6 +30,22 @@ def feeds(request):
 
 def feed_details(request ,id):
     feed =  get_object_or_404(Feed, id=id)
+    if request.method == "POST":
+        content = request.POST['content']
+        user = request.user
+        # response_data = {}
+        comment =  Comment(content=content, feed=feed, user=user)
+        comment.save()
+        return redirect('feed_details', id=id)
+        # response_data['result'] = "Comment Added"
+        # response_data['user'] = user.username
+        # response_data['comment'] = content
+        # return HttpResponse(
+        #     json.dumps(response_data),
+        #     content_type = 'Application/json'
+        # )
+ 
+
     context = {
         'data':feed
     }
@@ -55,3 +73,6 @@ def delete_feed(request, id):
     feed.delete()
     messages.success(request, 'Post has been deleted!')
     return redirect('feeds')
+
+
+

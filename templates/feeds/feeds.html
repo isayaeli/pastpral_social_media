@@ -12,7 +12,7 @@
         <div class="user-profile">
             <div class="username-dt">
                 <div class="usr-pic">
-                    <img src="{% static 'assets/images/user-pic.png' %}" alt="">
+                    <img src="{{request.user.profile.image.url}}" alt="">
                 </div>
             </div>
             <div class="user-specs">
@@ -23,18 +23,19 @@
         <ul class="user-fw-status" style="display: inline-flex ;">
             <li>
                 <h6><b>Following</b></h6>
-                <small>34</small>
+                <small>{{request.user.profile.followers.count}}</small>
             </li>
             <li>
-                <h6><b>Followers</b></h6>
-                <small>155</small>
+                <h6><b>Follower{{request.user.profile.followers.count|pluralize}}</b></h6>
+                <small>{{request.user.profile.followers.count}}</small>
             </li>
                 <li>
-                <a class="btn btn-success btn-sm rounded-pill text-white " href="my-profile-feed.html" title="">Profile</a>
+                <a class="btn btn-success btn-sm rounded-pill text-white " href="{% url 'timeline' user.id %}" title="">Profile</a>
                 </li>
             </ul>
     </div>
-    <div class="suggestions full-width" style="position:fixed; width:260px; margin-top: 23%;" >
+    <div style="height:20px;"></div>
+    <div class="suggestions full-width " style="position:fixed; width:260px; margin-top: 23%;" >
     <div class="sd-title">
         <h3>Top Suggested Officers</h3>
         <i class="la la-ellipsis-v"></i>
@@ -56,14 +57,7 @@
             </div>
             <span><i class="la la-plus"></i></span>
         </div>
-        <div class="suggestion-usd">
-            <img src="{% static 'assets/images/s3.png' %}" alt="">
-            <div class="sgt-text">
-                <h4>Jane Doe</h4>
-                <span>Arusha</span>
-            </div>
-                <span><i class="la la-plus"></i></span>
-            </div>
+    
     
     
 
@@ -94,7 +88,7 @@
           {% endif %}
             <div class="post-topbar">
                 <div class="user-picy">
-                    <img src="{% static 'assets/images/user-pic.png' %}" alt="">
+                    <img src="{{data.user.profile.image.url}}" alt="">
                     
                 </div>
                 <div class="post-st">
@@ -113,9 +107,9 @@
             <div class="post-bar">
                 <div class="post_topbar">
                     <div class="usy-dt">
-                        <img src="{% static 'assets/images/us-pic.png' %}" alt="">
+                        <img width="40" height="40" src="{{data.user.profile.image.url}}" alt="">
                         <div class="usy-name">
-                            <a href="timeline.html"><h3>{{ data.user.username }}</h3></a>
+                            <a href="{% url 'timeline' data.user.id %}"><h3>{{ data.user.username }}</h3></a>
                             <span><img src="{% static 'assets/images/clock.png' %}" alt="">{{data.published}}</span>
                         </div>
                     </div>
@@ -174,7 +168,7 @@
                     <a href="#"><i class="fa fa-heart ml-1"></i> Like</a>
                     
                     </li>
-                    <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comment 15</a></li>
+                    <li><a href="#" class="com"><i class="fas fa-comment-alt"></i>{{data.get_comment.count}} Comment{{data.get_comment.count|pluralize}}</a></li>
                     </ul>
                     <a href="#"><i class="fa fa-eye"></i>Views 50</a>
                 </div>
@@ -272,6 +266,61 @@ $('.sidebar video').each( function(index, element) {
 $(this).parent().find("video")[0].play();
 
 });
+
+
+
+
+
+
+$(document).on('click', '#follow', function(e){
+    e.preventDefault();
+
+    var pk = $(this).attr('value');
+    
+    $.ajax({
+        type:'POST',
+        url:'{% url "follow" %}',
+        data:{
+            'id':pk,
+            'csrfmiddlewaretoken':'{{csrf_token}}'
+        },
+        success:function(response){
+            console.log(response)
+
+            // for toggling icon on list view
+            // $("#mark"+pk).toggleClass('far fa-bookmark fas fa-bookmark')
+            $('#follow'+pk).toggleClass('text-white text-dark')
+            $('#follow2'+pk).toggleClass('text-white text-dark')
+            
+            //for toggling icon on grid view
+            // $("#mark2"+pk).toggleClass('far fa-bookmark fas fa-bookmark')
+            
+            // for grid  view on to change text on successfull post
+            if($('#follow'+pk).text() == 'Follow'){
+                $('#follow'+pk).text('Following')
+            }
+            else {
+                $('#follow'+pk).text('Follow')
+            }
+
+            if($('#follow2'+pk).text() == 'Follow'){
+                $('#follow2'+pk).text('Following')
+            }
+            else {
+                $('#follow2'+pk).text('Follow')
+            }
+    
+    
+        },
+        errror: function(rs,e){
+            console.log(rs.responseText);
+        }
+    })
+})
+
+
+
+
 </script>
 
 {% include 'includes/modals.html' %}

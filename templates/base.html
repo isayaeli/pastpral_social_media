@@ -40,25 +40,25 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html" title="">
+                        <a href="{% url 'feeds' %}" title="">
                         <span><img src="{% static 'assets/images/icon1.png' %}" alt=""></span>
                         Home
                         </a>
                     </li>
                     <li>
-                        <a href="index.html" title="">
+                        <a href="{% url 'feeds' %}" title="">
                         <span><img src="{% static 'assets/images/icon2.png' %}" alt=""></span>
                         Feeds
                         </a>
                     </li>
                     <li>
-                        <a href="projects.html" title="">
+                        <a href="{% url 'auction' %}" title="">
                         <span><img src="{% static 'assets/images/icon3.png' %}" alt=""></span>
                         Auction
                         </a>
                     </li>
                     <li>
-                        <a href="officers.html" title="">
+                        <a href="{% url 'officers' %}" title="">
                         <span><img src="{% static 'assets/images/icon4.png' %}" alt=""></span>
                         Officers
                         </a>
@@ -134,7 +134,7 @@
             <div class="user-account">
                 <div class="user-info">
                     <img src="{% static 'assets/images/user.png' %}" alt="">
-                    <a href="#" title="">{{request.user.username}}</a>
+                    <a class="text-white" title="">{{request.user.username}}</a>
                     <i class="la la-sort-down"></i>
                 </div>
                 <div class="user-account-settingss" id="users">

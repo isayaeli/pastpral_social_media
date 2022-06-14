@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block contents %}
+<section class="companies-info">
+    <div class="container">
+        <div class="company-title">
+            <h3>All Companies</h3>
+        </div>
+        <div class="companies-list">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    {% for data in officers %}
+                    <div class="company_profile_info">
+                        <div class="company-up-info">
+                            <img  height="100" width="100" src="{{data.image.url}}" alt="">
+                            <h3>{{data.user.username}}</h3>
+                            <h4>{{data.work_type}}</h4>
+                            <ul>
+                                {% if request.user in data.followers.all %}
+                                <li><button value="{{data.id}}" id="follow" title="" class=" btn btn-success btn-sm  rounded-pill">
+                                    <span id="follow{{data.id}}" >Following</span>
+                                </button></li>
+                                {% else %}
+                                <li><button value="{{data.id}}" id="follow" title="" class=" btn btn-success btn-sm  rounded-pill">
+                                    <span id="follow{{data.id}}" >Follow</span>
+                                </button></li>
+                                {% endif %}
+                                <li><a href="#" title="" class=" btn btn-success btn-sm rounded-pill"><i class="fa fa-envelope"></i></a></li>
+                                <!-- <li><a href="#" title="" class="hire-us"></a></li> -->
+                            </ul>
+                        </div>
+                        <a href="{% url 'timeline' data.user.id %}" title="" class="view-more-pro">View Profile</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+$(document).on('click', '#follow', function(e){
+    e.preventDefault();
+
+    var pk = $(this).attr('value');
+    
+    $.ajax({
+        type:'POST',
+        url:'{% url "follow" %}',
+        data:{
+            'id':pk,
+            'csrfmiddlewaretoken':'{{csrf_token}}'
+        },
+        success:function(response){
+            console.log(response)
+
+            // for toggling icon on list view
+            // $("#mark"+pk).toggleClass('far fa-bookmark fas fa-bookmark')
+            $('#follow'+pk).toggleClass('text-white text-white')
+            $('#follow2'+pk).toggleClass('text-white text-dark')
+            
+            //for toggling icon on grid view
+            // $("#mark2"+pk).toggleClass('far fa-bookmark fas fa-bookmark')
+            
+            // for grid  view on to change text on successfull post
+            if($('#follow'+pk).text() == 'Follow'){
+                $('#follow'+pk).text('Following')
+            }
+            else {
+                $('#follow'+pk).text('Follow')
+            }
+
+            if($('#follow2'+pk).text() == 'Follow'){
+                $('#follow2'+pk).text('Following')
+            }
+            else {
+                $('#follow2'+pk).text('Follow')
+            }
+
+
+            if( response.is_followed == true){
+                $('#count').hide()
+                $('#count2 :nth-child(1)').remove()
+                if(response.count == 1 ){
+                    $('#count2').append('<small>'+response.count+'</small>')
+                }else{
+                    $('#count2').append('<small>'+response.count+'</small>')
+                }
+                
+
+            }else if( response.is_followed == false){
+                $('#count').hide()
+                $('#count2 :nth-child(1)').remove()
+                if(response.count == 1 ){
+                    $('#count2').append('<small>'+response.count+'</small>')
+                }else{
+                    $('#count2').append('<small>'+response.count+'</small>')
+                }
+
+            }
+    
+    
+        },
+        errror: function(rs,e){
+            console.log(rs.responseText);
+        }
+    })
+})
+
+
+
+
+</script>
+{% endblock contents %}

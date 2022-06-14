@@ -7,4 +7,6 @@ from .models import Feed,Comment
 admin.site.register(Feed)
 admin.site.register(Comment)
 
+admin.site.site_header = 'PSM admin'
+
 admin.site.unregister(Group)

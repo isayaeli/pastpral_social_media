@@ -1,0 +1,370 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+<section class="cover-sec">
+    <img height="500" src="{% static 'assets/images/cover-img.jpg' %}" alt="">
+    <div class="add-pic-box mt-5">
+        <!-- <div class="container">
+            <div class="row no-gutters ">
+                <div class="col-lg-12 col-sm-12">
+                    <input type="file" id="file">
+                    <label for="file">Change Image</label>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</section>
+<main>
+<div class="main-section">
+<div class="container">
+<div class="main-section-data">
+<div class="row">
+<div class="col-lg-3">
+<div class="main-left-sidebar">
+<div class="user_profile">
+<div class="user-pro-img">
+{% if data.user.profile.image  %}
+    <img style="border-radius: 130px;" width="200" src="{{data.user.profile.image.url}}" alt="">
+{% endif %}
+    <div class="add-dp" id="OpenImgUpload">
+        <input type="file" id="file">
+        <label for="file"><i class="fa fa-camera"></i></label>
+    </div>
+</div>
+<div class="user_pro_status">
+    <ul class="user-fw-status" style="display: inline-flex ;">
+        <li>
+            <h6><b>Following</b></h6>
+            <small>{{follows}}</small>
+        </li>
+        <li>
+            <h6><b>Follower{{data.followers.all.count|pluralize}}</b></h6>
+            <small id="count2" ></small>
+            <small id="count"> {{data.followers.all.count}}</small>
+        </li>
+            <li>
+                <form action="{% url 'follow' %}" method="post">
+                    {% csrf_token %}
+                    {% if request.user in data.user.profile.followers.all %}
+                    <button value="{{data.user.profile.id}}" id="follow" class="btn btn-outline-success btn-sm rounded-pill ">
+                        <small id="follow{{data.user.profile.id}}"  >Following</small>
+                    </button>
+                    {% else %}
+                    <button value="{{data.user.profile.id}}" id="follow" class="btn btn-success btn-sm rounded-pill">
+                        <small id="follow{{data.user.profile.id}}"  >Follow</small>
+                    </button>
+                    {% endif %}
+                </form>
+            </li>
+        </ul>
+</div>
+
+</div>
+
+<div class="suggestions full-width">
+    <div class="sd-title">
+        <h3>Top Suggested Officers</h3>
+        <i class="la la-ellipsis-v"></i>
+    </div>
+    <div class="suggestions-list">
+        <div class="suggestion-usd">
+            <img src="images/resources/s1.png" alt="">
+            <div class="sgt-text">
+                <h4>Jessica William</h4>
+                <span>Dodoma</span>
+            </div>
+            <span><i class="la la-plus"></i></span>
+        </div>
+        <div class="suggestion-usd">
+            <img src="images/resources/s2.png" alt="">
+            <div class="sgt-text">
+                <h4>John Doe</h4>
+                <span>Dar es salaam</span>
+            </div>
+            <span><i class="la la-plus"></i></span>
+        </div>
+        <div class="suggestion-usd">
+            <img src="images/resources/s3.png" alt="">
+            <div class="sgt-text">
+                <h4>Jane Doe</h4>
+                <span>Arusha</span>
+            </div>
+                <span><i class="la la-plus"></i></span>
+            </div>
+        <div class="suggestion-usd">
+            <img src="images/resources/s4.png" alt="">
+            <div class="sgt-text">
+                <h4>Bill Gates</h4>
+                <span>Kilimanajaro</span>
+            </div>
+            <span><i class="la la-plus"></i></span>
+        </div>
+    
+
+        <div class="view-more">
+            <a href="#" title="">View More</a>
+        </div>
+    </div>
+    </div>
+    
+</div>
+</div>
+<div class="col-lg-6">
+<div class="main-ws-sec">
+<div class="user-tab-sec rewivew ">
+    <h3>{{data.user.username}}</h3>
+    <div class="star-descp mt-4">
+        <span class="mt-2" >{{ data.user.profile.work_type }} Stock keeper</span>
+        <button class="btn btn-success btn-sm rounded-pill " >Edit Profile</button>
+    </div>
+</div>
+
+<div class="product-feed-tab current" id="feed-dd">
+    <div class="posts-section">
+        {% for data in feeds %}   
+        <div class="post-bar">
+            <div class="post_topbar">
+                <div class="usy-dt">
+                    <img width="40" height="40" src="{{data.user.profile.image.url}}" alt="">
+                    <div class="usy-name">
+                        <a href="{% url 'timeline' data.user.id %}"><h3>{{ data.user.username }}</h3></a>
+                        <span><img src="{% static 'assets/images/clock.png' %}" alt="">{{data.published}}</span>
+                    </div>
+                </div>
+                <div class="ed-opts">
+                <a href="#" title="" class="ed-opts-open"><i class="fa fa-ellipsis-v"></i></a>
+                    <ul class="ed-options">
+                        <li><a  href="{% url 'edit_feed' data.id %}" title="">Edit <i class="fa fa-pencil" ></i></a></li>
+                        <li><a data-toggle="modal" data-target="#delete{{ data.id }}" title="">Delete<i class="fa fa-trash text-dark"></i>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="epi-sec">
+                <ul class="descp">
+                    <li class="fornt-weight-bold" ><h3 style="font-weight: 900;" >Pastoralist</h3></li>
+                    <li><img src="{% static 'assets/images/icon8.png' %}" alt=""><span>Dodoma</span></li>
+                </ul>
+                <ul class="bk-links">
+                 
+                    <!-- <li><a href="#" title=""><i style="font-size:12px" class="fa fa-bookmark"></i></a></li> -->
+                    <li><a href="#" title=""><i style="font-size:12px" class="fa fa-envelope"></i></a></li>
+                </ul>
+            </div>
+
+
+
+            <div class="job_descp">
+                <!-- <h3>Pastoralist</h3> -->
+                <!-- <ul class="job-dt">
+                    <li><a href="#" title="">Full Time</a></li>
+                    <li><span>$30 / hr</span></li>
+                </ul> -->
+                {% if data.texts %}
+                <p> 
+                    {{data.texts|truncatechars:"200"}}
+                    <a href="{% url 'feed_details' data.id %}" title="">view more</a>
+                </p>
+                {% endif %}
+
+                {% if data.image %}
+                 <img style="width:100%;" src="{{ data.image.url }}" alt="">
+                {% endif %}
+
+                {% if data.video %}
+                <video class="playpause" id="v" style=" width:100%;" controls  >
+                    <source src="{{ data.video.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                {% endif %}
+           
+            </div>
+            <div class="job-status-bar">
+                <ul class="like-com">
+                <li>
+                <span class="ml-1" ><strong style="font-size:10px ;" >250M</strong></span>
+                <a href="#"><i class="fa fa-heart ml-1"></i> Like</a>
+                
+                </li>
+                <li><a href="#" class="com"><i class="fas fa-comment-alt"></i>{{data.get_comment.count}} Comment{{data.get_comment.count|pluralize}}</a></li>
+                </ul>
+                <a href="#"><i class="fa fa-eye"></i>Views 50</a>
+            </div>
+        </div>
+        {% empty %}
+        <span>No feeds yet</span>
+        {% endfor %}
+    </div>
+</div>
+<div class="product-feed-tab" id="my-bids">
+<ul class="nav nav-tabs bid-tab" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Manage Bids</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="bidders-tab" data-toggle="tab" href="#bidders" role="tab" aria-controls="contact" aria-selected="false">Manage Bidders</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">My Active Bids</a>
+    </li>
+</ul>
+
+<div class="product-feed-tab" id="rewivewdata">
+
+<div class="col-lg-3">
+    <div class="right-sidebar">
+        <div class="message-btn">
+            <a href="profile-account-setting.html" title=""><i class="fa fa-cog"></i> Setting</a>
+        </div>
+    <div class="widget widget-portfolio">
+    <div class="wd-heady">
+        <h3>Portfolio</h3>
+        <img src="images/photo-icon.png" alt="">
+    </div>
+    <div class="jobs-list">
+        <div class="job-info">
+            <div class="job-details">
+                <h3>Cattle keeping</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+            </div>
+            <div class="hr-rate">
+                <span>2hr</span>
+            </div>
+        </div>
+
+        <div class="job-info">
+            <div class="job-details">
+                <h3>Cattle keeping</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+            </div>
+            <div class="hr-rate">
+                <span>2hr</span>
+            </div>
+        </div>
+        <div class="job-info">
+            <div class="job-details">
+                <h3>Cattle keeping</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+            </div>
+            <div class="hr-rate">
+                <span>2hr</span>
+            </div>
+        </div>
+
+        <div class="job-info">
+            <div class="job-details">
+                <h3>Cattle keeping</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+            </div>
+            <div class="hr-rate">
+                <span>2hr</span>
+            </div>
+        </div>
+    
+        
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</div>
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+$(document).on('click', '#follow', function(e){
+    e.preventDefault();
+
+    var pk = $(this).attr('value');
+    
+    $.ajax({
+        type:'POST',
+        url:'{% url "follow" %}',
+        data:{
+            'id':pk,
+            'csrfmiddlewaretoken':'{{csrf_token}}'
+        },
+        success:function(response){
+            console.log(response)
+
+            // for toggling icon on list view
+            // $("#mark"+pk).toggleClass('far fa-bookmark fas fa-bookmark')
+            $('#follow'+pk).toggleClass('text-white text-white')
+            $('#follow2'+pk).toggleClass('text-white text-dark')
+            
+            //for toggling icon on grid view
+            // $("#mark2"+pk).toggleClass('far fa-bookmark fas fa-bookmark')
+            
+            // for grid  view on to change text on successfull post
+            if($('#follow'+pk).text() == 'Follow'){
+                $('#follow'+pk).text('Following')
+            }
+            else {
+                $('#follow'+pk).text('Follow')
+            }
+
+            if($('#follow2'+pk).text() == 'Follow'){
+                $('#follow2'+pk).text('Following')
+            }
+            else {
+                $('#follow2'+pk).text('Follow')
+            }
+
+
+            if( response.is_followed == true){
+                $('#count').hide()
+                $('#count2 :nth-child(1)').remove()
+                if(response.count == 1 ){
+                    $('#count2').append('<small>'+response.count+'</small>')
+                }else{
+                    $('#count2').append('<small>'+response.count+'</small>')
+                }
+                
+
+            }else if( response.is_followed == false){
+                $('#count').hide()
+                $('#count2 :nth-child(1)').remove()
+                if(response.count == 1 ){
+                    $('#count2').append('<small>'+response.count+'</small>')
+                }else{
+                    $('#count2').append('<small>'+response.count+'</small>')
+                }
+
+            }
+    
+    
+        },
+        errror: function(rs,e){
+            console.log(rs.responseText);
+        }
+    })
+})
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock contents %}
